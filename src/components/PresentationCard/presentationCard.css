@@ -1,5 +1,5 @@
 .presentationCard {
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   display: flex;
   gap: 10px;
   border-radius: 10px;
@@ -23,7 +23,6 @@
 .presentationCard_info {
   display: block;
   text-align: left;
-  border-bottom: 1px solid whitesmoke;
 }
 
 .presentationCard_info > * {
@@ -33,4 +32,18 @@
 .presentationCard_info--title {
   font-size: 50px;
 }
+
+.presentationCard__networks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid whitesmoke;
+}
+
+.network_link {
+  color: whitesmoke;
+}
+
+
 

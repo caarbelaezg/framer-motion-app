@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { GoMarkGithub } from "react-icons/go";
+import { IoLogoLinkedin, IoLogoInstagram, IoMail } from "react-icons/io5";
 import carlos from "../../assets/carlos.png";
 
 import { fadeInPresentationCard } from "../../motionUtils";
@@ -7,7 +9,7 @@ import "./presentationCard.css";
 
 export const PresentationCard = () => {
   return (
-    <motion.div 
+    <motion.div
       className="presentationCard"
       variants={fadeInPresentationCard}
       initial="initial"
@@ -22,6 +24,20 @@ export const PresentationCard = () => {
         <p className="presentationCard_info--desc">
           Full Stack Software Developer
         </p>
+        <div className="presentationCard__networks">
+          <a className="network_link" href="https://github.com/caarbelaezg">
+            <GoMarkGithub />
+          </a>
+          <a className="network_link" href="https://www.linkedin.com/in/caarbelaezg/">
+            <IoLogoLinkedin />
+          </a>
+          <a className="network_link" href="https://www.instagram.com/caarbelaezg/">
+            <IoLogoInstagram />
+          </a>
+          <a className="network_link" href="mailto:caarbelaezg@gmail.com">
+            <IoMail />
+          </a>
+        </div>
       </div>
     </motion.div>
   );
