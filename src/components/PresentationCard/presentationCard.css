@@ -1,4 +1,10 @@
 .presentationCard {
+  position: absolute;
+  min-width: 510px;
+  top: 15%
+}
+
+.presentationCard_container {
   padding: 20px 20px 10px 20px;
   display: flex;
   gap: 10px;
