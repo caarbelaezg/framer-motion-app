@@ -1,4 +1,6 @@
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
+import { useFadeOutScroll } from "../../hooks/useFadeOut";
+import { fadeOutValues } from "./utils"
 import { GoMarkGithub } from "react-icons/go";
 import { IoLogoLinkedin, IoLogoInstagram, IoMail } from "react-icons/io5";
 import carlos from "../../assets/carlos.png";
@@ -8,19 +10,8 @@ import { fadeInPresentationCard } from "../../motionUtils";
 import "./presentationCard.css";
 
 export const PresentationCard = () => {
-  const { scrollY } = useScroll();
-
-  const x = useTransform(
-    scrollY,
-    [0, 200],
-    [0, -200]
-  )
-
-  const opacity = useTransform(
-    scrollY,
-    [-100, 0, 100, 200],
-    [0, 1, 1, 0]
-  )
+  const { xValues, opacityValues} = fadeOutValues;
+  const { x, opacity } = useFadeOutScroll(xValues, opacityValues)
 
   return (
     <motion.div className="presentationCard" style={{x, opacity}}>
