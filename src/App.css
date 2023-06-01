@@ -18,3 +18,9 @@
   background-color: antiquewhite;
 }
 
+li {
+  list-style: none;
+}
+ul {
+  padding: 0;
+}

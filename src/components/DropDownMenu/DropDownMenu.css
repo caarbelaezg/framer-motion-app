@@ -1,0 +1,12 @@
+.list{
+  height: 0px;
+  width: 0px;
+}
+
+.list[data-isOpen="true"] {
+  background-color: red;
+  position: absolute;
+  height: 200px;
+  width: 150px;
+  border-radius: 10px;
+}
