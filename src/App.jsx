@@ -1,18 +1,64 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useCycle, useAnimate, stagger } from "framer-motion";
 import { Button } from "./components/Button/Button";
 import { PresentationCard } from "./components/PresentationCard/PresentationCard";
 
 import "./App.css";
 import { DropDownMenu } from "./components/DropDownMenu/DropDownMenu";
+import { MenuToggle } from "./components/MenuToggle/MenuToggle";
+import { Menu } from "./components/MenuToggle/Menu";
 
 function App() {
   const [count, setCount] = useState(0);
   const [showComponent, setShowComponent] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    const menuAnimations = showMenu
+      ? [
+          [
+            "nav",
+            { transform: "translateX(0%)" },
+            { ease: [0.08, 0.65, 0.53, 0.96], duration: 0.6 },
+          ],
+          [
+            "li",
+            { transform: "scale(1)", opacity: 1, filter: "blur(0px)" },
+            { delay: stagger(0.05), at: "-0.1" },
+          ],
+        ]
+      : [
+          [
+            "li",
+            { transform: "scale(0.5)", opacity: 0, filter: "blur(10px)" },
+            { delay: stagger(0.05, { from: "last" }), at: "<" },
+          ],
+          ["nav", { transform: "translateX(-100%)" }, { at: "-0.1" }],
+        ];
+
+    animate([
+      [
+        "path.top",
+        { d: showMenu ? "M 3 16.5 L 17 2.5" : "M 2 2.5 L 20 2.5" },
+        { at: "<" },
+      ],
+      ["path.middle", { opacity: showMenu ? 0 : 1 }, { at: "<" }],
+      [
+        "path.bottom",
+        { d: showMenu ? "M 3 2.5 L 17 16.346" : "M 2 16.346 L 20 16.346" },
+        { at: "<" },
+      ],
+      ...menuAnimations
+    ]);
+  }, [showMenu]);
 
   const incrementCount = () => {
     setCount((count) => count + 1);
   };
+
+  const [x, cycleX] = useCycle(0, 50, 100);
 
   return (
     <>
@@ -24,7 +70,7 @@ function App() {
           {!showComponent ? "Show component" : "Hide component"}
         </button>
       </div>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {showComponent ? (
           <motion.div
             initial={{ opacity: 0 }}
@@ -37,12 +83,15 @@ function App() {
             </motion.ul>
           </motion.div>
         ) : null}
-      </AnimatePresence>
-      <DropDownMenu />
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nihil velit aliquam dolore, veniam sit quaerat voluptates porro, ipsam incidunt saepe, asperiores quasi fuga voluptate quibusdam iste. Dolores, voluptatibus facere magnam suscipit consequatur dolore voluptatem et expedita, pariatur maiores modi animi illum a quas omnis autem, ullam harum odio sapiente rem minima corrupti ea? Dolor, maxime vero! Accusantium voluptates sed beatae ab in delectus asperiores dicta natus autem corporis ea, quam nisi, harum, iusto amet repellat magni minus deleniti iure saepe aspernatur veritatis officia molestias deserunt! Commodi mollitia error doloribus consectetur inventore consequuntur! Obcaecati a ullam cupiditate earum nulla deleniti, soluta asperiores enim reprehenderit nam. Id, optio. Soluta, omnis? Consequuntur, distinctio alias! Magni nisi quis libero, veritatis fuga dolorum doloribus ut maxime. Odit saepe neque minima alias eligendi ducimus dicta mollitia, magnam repellendus modi ipsum tenetur unde ad vel accusantium id repudiandae nihil a ab animi est sunt reprehenderit? Aspernatur atque, ipsa, inventore dolor quidem provident deleniti ratione illum iste quibusdam nam debitis, quis voluptatum voluptatibus. Quo delectus sapiente tempora quas aperiam in tenetur nihil similique ab distinctio iure ut, ipsam voluptatibus soluta assumenda ullam, deserunt possimus placeat minima nemo fuga est consequatur sed numquam? Error vero velit aspernatur voluptatem.
+      </AnimatePresence> */}
+      {/* <DropDownMenu /> */}
+      <motion.div animate={{ x: x }} onTap={() => cycleX()}>
+        cosa
+      </motion.div>
+      <div ref={scope}>
+        <MenuToggle toggle={() => setShowMenu(!showMenu)} />
+        <Menu />
       </div>
-
     </>
   );
 }
